@@ -1,6 +1,5 @@
 FULL NAME: Dinesh Ramamoorthy
-Netid: dramamoorthy
-U-Id: U51857354
+
 COURSE: CIS6930 Advanced Databases 
 TERM: Fall 2016
 Project No:  1
