@@ -1,0 +1,169 @@
+FULL NAME: Dinesh Ramamoorthy
+Netid: dramamoorthy
+U-Id: U51857354
+COURSE: CIS6930 Advanced Databases 
+TERM: Fall 2016
+Project No:  1
+
+Installation of PostgreSQL version 8.2.19:
+1)	Linux OS Ubuntu version 11.10 is used here. The terminal is used to install the PostgreSQL with the help of the GNU MAKE as the compiler.
+         OS: Linux OS UBUNTU version 11.10
+         Compiler and version: GNU MAKE 3.81
+2)	The PostgreSQL version 8.2.19 source is downloaded from the link https://www.postgresql.org/ftp/source/v8.2.19/ and steps for installation are followed from the link https://www.postgresql.org/docs/8.2/static/index.html .
+3)	The source file is unzipped and extracted with the help of gunzip postgresql-8.2.19.tar.gz and tar xf postgresql-8.2.19.tar
+4)	Then the directory postgresql-8.2.19 is configured with the command ./configure. This command checks the requirements of the installation and also creates the make file.
+5)	The make version which exists is checked with the command make --version.
+6)	Then the command make is used to compile the program code and create the executables.
+7)	Then the make install command is used to complete the installation which copies the executables to the final directories.
+8)	Now the PostgreSQL version 8.2.19 is successfully installed.
+
+Creating a PostgreSQL server and a client:
+1)	An user named Postgres is added with the command sudo adduser postgres
+2)	Then the user is added to sudo and the super user privilege is provided with the command sudo adduser postgres sudo.
+3)	Now a directory is created with the /usr/local/pgsql/data and the owner is changed to postgres with the command chown postgres /usr/local/pgsql/data
+4)	/usr/local/pgsql/bin/initdb -D /usr/local/pgsql/data is used to specify the default table space for the database.
+5)	/usr/local/pgsql/bin/createdb dinesh  with this command a database is created and a message CREATE DATABASE is displayed
+6)	/usr/local/pgsql/bin/psql dinesh with this command the psql client is created
+7)	The psql 8.2.19, the PostgreSQL interactive terminal opens which acts as the client.
+8)	\l command can be used to check the created database and the other existing databases.
+9)	" /usr/local/pgsql/bin/createdb dineshdb1 " is entered and a database named dineshdb1 is created.
+10)     Practical input and output: postgres@dinesh-VirtualBox:~$ /usr/local/pgsql/bin/createdb dineshdb1
+CREATE DATABASE
+11)     Then a client psql is created 
+        practical input and output: postgres@dinesh-VirtualBox:~$ /usr/local/pgsql/bin/psql dineshdb1
+Welcome to psql 8.2.19, the PostgreSQL interactive terminal.
+
+Type:  \copyright for distribution terms
+       \h for help with SQL commands
+       \? for help with psql commands
+       \g or terminate with semicolon to execute query
+       \q to quit
+
+Creating Tables and queries:
+
+1) dineshdb1=# CREATE TABLE marksheet(
+dineshdb1(# Name varchar(80),
+dineshdb1(# Math int,
+dineshdb1(# Science int,
+dineshdb1(# social int,
+dineshdb1(# Literature int);
+CREATE TABLE
+  
+( A table is created with the script above and an output CREATE TABLE is displayed)
+
+2) dineshdb1=# CREATE TABLE population(
+dineshdb1(# city varchar(80),
+dineshdb1(# male int,
+dineshdb1(# female int,
+dineshdb1(# children int);
+CREATE TABLE
+ ( Another table is created with the script above and an output CREATE TABLE is displayed)
+
+3) dineshdb1=# INSERT INTO marksheet VALUES(
+dineshdb1(# 'John' ,
+dineshdb1(# 95,      
+dineshdb1(# 80,
+dineshdb1(# 75,
+dineshdb1(# 82);
+INSERT 0 1
+dineshdb1=# INSERT INTO marksheet VALUES(
+dineshdb1(# 'Cris' ,
+dineshdb1(# 92,      
+dineshdb1(# 78,
+dineshdb1(# 80,
+dineshdb1(# 91);
+INSERT 0 1
+
+( Two values are inserted into the created table marksheet with the script shown above)
+
+4) dineshdb1=# INSERT INTO population VALUES(
+dineshdb1(# 'tampa' ,
+dineshdb1(# 850,    
+dineshdb1(# 720,
+dineshdb1(# 300);
+INSERT 0 1
+dineshdb1=# INSERT INTO population VALUES(
+dineshdb1(# 'jacksonville' ,
+dineshdb1(# 720,
+dineshdb1(# 600
+dineshdb1(# ,220);
+INSERT 0 1
+dineshdb1=# INSERT INTO population VALUES(
+dineshdb1(# 'miami' ,
+dineshdb1(# 860,         
+dineshdb1(# 600,
+dineshdb1(# 300);
+INSERT 0 1
+dineshdb1=# INSERT INTO population VALUES(
+dineshdb1(# 'palm beach' ,
+dineshdb1(# 480,
+dineshdb1(# 500,
+dineshdb1(# 100);
+INSERT 0 1
+
+(four values are inserted into the table population with the script shown above)
+
+5) dineshdb1=# SELECT * FROM marksheet;
+ name | math | science | social | literature 
+------+------+---------+--------+------------
+ John |   95 |      80 |     75 |         82
+ Cris |   92 |      78 |     80 |         91
+(2 rows)
+
+( SELECT FROM querry is used to display all the columns of the table marksheet with * )
+
+6) dineshdb1=# SELECT * FROM population;
+     city     | male | female | children 
+--------------+------+--------+----------
+ tampa        |  850 |    720 |      300
+ jacksonville |  720 |    600 |      220
+ miami        |  860 |    600 |      300
+ palm beach   |  480 |    500 |      100
+(4 rows)
+
+( SELECT FROM querry is used to display all the columns of the table population with *)
+
+7) dineshdb1=# SELECT * FROM marksheet
+dineshdb1-# ORDER BY name;
+ name | math | science | social | literature 
+------+------+---------+--------+------------
+ Cris |   92 |      78 |     80 |         91
+ John |   95 |      80 |     75 |         82
+(2 rows)
+
+ ( SELECT FROM is used and ORDER BY is used to organise the entries in order)
+
+8)dineshdb1=# SELECT city, (male+female+children) AS total FROM population;
+     city     | total 
+--------------+-------
+ tampa        |  1870
+ jacksonville |  1540
+ miami        |  1760
+ palm beach   |  1080
+(4 rows)
+
+( AS is used here to bring a new column named total and a addition of other values in the preexisting columns is done)
+
+9) dineshdb1=# SELECT * FROM population ORDER BY city;
+     city     | male | female | children 
+--------------+------+--------+----------
+ jacksonville |  720 |    600 |      220
+ miami        |  860 |    600 |      300
+ palm beach   |  480 |    500 |      100
+ tampa        |  850 |    720 |      300
+(4 rows)
+
+( ORDER BY is used again in this table to order the coulmn city)
+
+10) dineshdb1=# SELECT DISTINCT city FROM population;
+     city     
+--------------
+ jacksonville
+ miami
+ palm beach
+ tampa
+(4 rows)
+
+( DISTINCT is used here, it removes the repeated names and displays unique names)
+
+11) *********** Since, I have completed this project in a laptop I would not be able to keep the server running all the time. Please give me a scheduled time to demo the installation in the TA's office or in the classroom. ************************
